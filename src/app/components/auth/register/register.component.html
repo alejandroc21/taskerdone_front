@@ -1,0 +1,14 @@
+<form [formGroup]="registerForm">
+    <h3>Register</h3>
+    
+    <label for="username">Name:</label>
+    <input formControlName="name" type="text" placeholder="Name" id="nombre">
+
+    <label for="email">Email:</label>
+    <input formControlName="email" type="email" placeholder="Email" id="email">
+
+    <label for="password">Password:</label>
+    <input formControlName="password" type="password" placeholder="Password" id="password">
+    
+    <button type="button" (click)="register()">Sign up</button>
+</form>

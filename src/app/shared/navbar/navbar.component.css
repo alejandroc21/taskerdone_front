@@ -1,0 +1,36 @@
+:host{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+    padding: 0 5%;
+}
+
+
+.title h1{
+    margin-left: auto;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.links{
+    list-style: none;
+}
+
+.links li{
+    display: inline-block;
+    padding: 0 10px;
+}
+
+.links li a{
+    color:rgb(17, 22, 26);
+    text-decoration: none;
+}
+
+.links li a:hover{
+    color: rgb(1, 167, 111);
+}
+
+.title h1:hover{
+    color:rgb(1, 167, 111);
+}
