@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { Observable, tap } from 'rxjs';
-import { LoginRequest } from '../model/auth/login-request';
-import { TokenResponse } from '../model/auth/token-response';
-import { environment } from '../../../environments/environment';
-import { RegisterRequest } from '../model/auth/register-request';
+import { LoginRequest } from '@core/model/auth/login-request';
+import { TokenResponse } from '@core/model/auth/token-response';
+import { RegisterRequest } from '@core/model/auth/register-request';
+import { environment } from '@env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -19,9 +18,7 @@ export class AuthService {
   login(loginRequest:LoginRequest):Observable<TokenResponse>{    
     return this._httpClient.post<TokenResponse>(`${this._apiUrl}/login`,loginRequest).pipe(
       tap((res)=>{
-        if(res.token){
-          this.saveToken(res.token);
-        }
+        this.saveToken(res);
       }
     ));
   }
@@ -29,14 +26,16 @@ export class AuthService {
   register(registerRequest:RegisterRequest):Observable<TokenResponse>{
     return this._httpClient.post<TokenResponse>(`${this._apiUrl}/register`,registerRequest).pipe(
       tap((res)=>{
-        if(res.token){
-          this.saveToken(res.token);
-        }
+        this.saveToken(res);
       }
     ));
   }
 
-  saveToken(token:string){
-    localStorage.setItem('token',token);
+  saveToken(tokenResponse:TokenResponse){
+    localStorage.setItem('token',tokenResponse.token);
+  }
+
+  getToken(){
+    return localStorage.getItem('token') || '';
   }
 }
