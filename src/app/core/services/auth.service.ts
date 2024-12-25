@@ -12,6 +12,7 @@ import { environment } from '@env/environment';
 export class AuthService {
   private readonly _httpClient = inject(HttpClient);
   private readonly _apiUrl = `${environment.apiUrl}/auth`;
+  private tokenKey = 'token';
 
   constructor() { }
 
@@ -32,10 +33,23 @@ export class AuthService {
   }
 
   saveToken(tokenResponse:TokenResponse){
-    localStorage.setItem('token',tokenResponse.token);
+    localStorage.setItem(this.tokenKey,tokenResponse.token);
   }
 
   getToken(){
-    return localStorage.getItem('token') || '';
+    return localStorage.getItem(this.tokenKey) || '';
+  }
+
+  logout(){
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  isAuthenticated(){
+    const token = this.getToken();
+    if(!token){
+      return false;
+    }
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    return (payload.exp*1000) > Date.now();  
   }
 }
