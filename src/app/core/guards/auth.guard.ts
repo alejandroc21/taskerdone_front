@@ -7,9 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   const isAuthenticated = authService.isAuthenticated();
-  const isPublicRoute = ['login', 'register',''].includes(route.routeConfig?.path || '');
-  console.log(isAuthenticated);
-  
+  const isPublicRoute = ['login', 'register',''].includes(route.routeConfig?.path || '');  
   
   if(isAuthenticated && isPublicRoute){
     router.navigate(['/home']);

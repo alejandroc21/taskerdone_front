@@ -1,1 +1,5 @@
-<p>home works!</p>
+<button (click)="createProject()">create project</button>
+
+@for (project of projects$ | async; track project.id) {
+    <app-project-item [project]="project" routerLink="/home/project/{{project.id}}" />
+}

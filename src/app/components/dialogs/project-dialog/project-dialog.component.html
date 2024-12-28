@@ -1,0 +1,7 @@
+<form [formGroup]="formProject">
+    <mat-form-field>
+        <input formControlName="name" type="text" placeholder="name" matInput>
+
+    </mat-form-field>
+    <button mat-raised-button  (click)="createProject()">Save</button>
+</form>
